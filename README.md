@@ -98,8 +98,7 @@ Detailed instructions on how to write a config file are provided in the section 
 
 ## Configuration File Structure
 
-Each experiment is configured via a JSON file located in the `configs/` directory.  
-These configuration files define the dataset, model type, training parameters, and more.
+Each experiment is configured via a JSON file located in the `configs/` directory. These configuration files define the dataset, model type, training parameters, and more.
 
 A typical config file for 3B models (e.g., LLaMA 3B, Qwen 3B) looks like this:
 
