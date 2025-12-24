@@ -270,7 +270,6 @@ def create_pytorch_dataset(files, args):
         pickle.dump(all_sequences, f)
     print(f"Saved dataset to {output_file}")
 
-
 if __name__ == "__main__":
     args = parse_args()
     args.include = True

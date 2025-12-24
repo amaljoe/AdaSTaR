@@ -15,7 +15,6 @@ from utils import get_model_tokenizer, get_loaded_model_tokenizer, get_wrong_exa
 
 pp = pprint.PrettyPrinter(indent=2).pprint
 
-
 def write_new_data(args, target_save, pred, data, endoftext):
     if args.task == "arc_challenge":
         q, choices = data["question"], data["choices"]
