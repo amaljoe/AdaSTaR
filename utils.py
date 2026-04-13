@@ -23,7 +23,7 @@ def build_problem_id_mapping(args, dataset_name, tokenizer=None):
 
     try:
         if dataset_name == "gsm8k":
-            dataset = load_from_disk("../datasets/data_gsm8k")
+            dataset = load_from_disk("./datasets/data_gsm8k")
             train_data = dataset["train"]
             test_data = dataset["test"]
 
@@ -639,57 +639,59 @@ def add_idx_to_batch(batch, indices):
 def get_dataloader(args, tokenizer, rank, world_size):
     dataset, dataset_train, dataset_test = None, None, None
     if args.task == "gsm8k":
-        dataset = load_from_disk("../datasets/data_gsm8k")
+        dataset = load_from_disk("./datasets/data_gsm8k")
         dataset_test = load_dataset("json", data_files="./datasets/data_gsm8k/test.jsonl")["train"]
 
-        dataset_train = dataset["train"].map(lambda examples: preprocess_function(args, examples, tokenizer, "train"), batched=True)
-        dataset_test = dataset_test.map(lambda examples: preprocess_function(args, examples, tokenizer, "test"), batched=True)
+        dataset_train = dataset["train"].map(lambda examples: preprocess_function(args, examples, tokenizer, "train"), batched=True, load_from_cache_file=False)
+        dataset_test = dataset_test.map(lambda examples: preprocess_function(args, examples, tokenizer, "test"), batched=True, load_from_cache_file=False)
 
     elif (args.task == "cladder"):
         dataset_train = load_dataset("json", data_files="./datasets/data_cladder_split/cladder_train_long.jsonl")["train"]
         dataset_test = load_dataset("json", data_files="./datasets/data_cladder_split/cladder_test.jsonl")["train"]
 
-        dataset_train = dataset_train.map(lambda examples: preprocess_function(args, examples, tokenizer, "train"), batched=True)
-        dataset_test = dataset_test.map(lambda examples: preprocess_function(args, examples, tokenizer, "test"), batched=True)
+        dataset_train = dataset_train.map(lambda examples: preprocess_function(args, examples, tokenizer, "train"), batched=True, load_from_cache_file=False)
+        dataset_test = dataset_test.map(lambda examples: preprocess_function(args, examples, tokenizer, "test"), batched=True, load_from_cache_file=False)
 
     elif args.task == "arc_challenge":
         dataset_train = load_dataset("json", data_files="./datasets/data_arc_challenge/train_val_combined.jsonl")["train"]
         dataset_test = load_dataset("json", data_files="./datasets/data_arc_challenge/test_new.jsonl")["train"]
 
-        dataset_train = dataset_train.map(lambda examples: preprocess_function(args, examples, tokenizer, "train"), batched=True)
-        dataset_test = dataset_test.map(lambda examples: preprocess_function(args, examples, tokenizer, "test"), batched=True)
+        dataset_train = dataset_train.map(lambda examples: preprocess_function(args, examples, tokenizer, "train"), batched=True, load_from_cache_file=False)
+        dataset_test = dataset_test.map(lambda examples: preprocess_function(args, examples, tokenizer, "test"), batched=True, load_from_cache_file=False)
 
     elif args.task == "cqa":
         dataset_train = load_dataset("json", data_files="./datasets/CommonsenseQA/train_rand_split.jsonl")["train"]
         dataset_test = load_dataset("json", data_files="./datasets/CommonsenseQA/test.jsonl")["train"]
 
-        dataset_train = dataset_train.map(lambda examples: preprocess_function(args, examples, tokenizer, "train"), batched=True)
-        dataset_test = dataset_test.map(lambda examples: preprocess_function(args, examples, tokenizer, "test"), batched=True)
+        dataset_train = dataset_train.map(lambda examples: preprocess_function(args, examples, tokenizer, "train"), batched=True, load_from_cache_file=False)
+        dataset_test = dataset_test.map(lambda examples: preprocess_function(args, examples, tokenizer, "test"), batched=True, load_from_cache_file=False)
 
     elif args.task == "anli_r1":
         dataset_train = load_dataset("json", data_files="./datasets/data_anli/train_r1_modified.jsonl")["train"]
         dataset_test = load_dataset("json", data_files="./datasets/data_anli/test_r1_modified.jsonl")["train"]
 
-        dataset_train = dataset_train.map(lambda examples: preprocess_function(args, examples, tokenizer, "train"), batched=True)
-        dataset_test = dataset_test.map(lambda examples: preprocess_function(args, examples, tokenizer, "test"), batched=True)
+        dataset_train = dataset_train.map(lambda examples: preprocess_function(args, examples, tokenizer, "train"), batched=True, load_from_cache_file=False)
+        dataset_test = dataset_test.map(lambda examples: preprocess_function(args, examples, tokenizer, "test"), batched=True, load_from_cache_file=False)
 
     elif args.task == "svamp":
         dataset_train = load_dataset("json", data_files="./datasets/data_svamp/train.jsonl")["train"]
         dataset_test = load_dataset("json", data_files="./datasets/data_svamp/test.jsonl")["train"]
 
-        dataset_train = dataset_train.map(lambda examples: preprocess_function(args, examples, tokenizer, "train"), batched=True)
-        dataset_test = dataset_test.map(lambda examples: preprocess_function(args, examples, tokenizer, "test"), batched=True)
+        dataset_train = dataset_train.map(lambda examples: preprocess_function(args, examples, tokenizer, "train"), batched=True, load_from_cache_file=False)
+        dataset_test = dataset_test.map(lambda examples: preprocess_function(args, examples, tokenizer, "test"), batched=True, load_from_cache_file=False)
 
     dataset_train = dataset_train.map(
     add_idx_to_batch,
     with_indices=True,
-    batched=True
+    batched=True,
+    load_from_cache_file=False
     )
 
     dataset_test = dataset_test.map(
         add_idx_to_batch,
         with_indices=True,
-        batched=True
+        batched=True,
+        load_from_cache_file=False
     )
 
     sampler_train = DistributedSampler(dataset_train, rank=rank, num_replicas=world_size, shuffle=True)

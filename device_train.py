@@ -9,6 +9,8 @@ from torch.distributed.fsdp import FullStateDictConfig, StateDictType
 
 import json
 from tqdm import tqdm
+import datasets as hf_datasets
+hf_datasets.disable_caching()
 
 from utils import get_model_tokenizer, get_optimizer_scheduler_step_based, setup, cleanup, log_args, \
     get_dataloader_STaR, get_loaded_model_tokenizer, merge_flops_logs

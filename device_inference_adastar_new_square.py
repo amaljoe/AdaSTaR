@@ -13,6 +13,8 @@ from collections import deque
 from transformers import AutoModelForCausalLM, AutoTokenizer, get_scheduler
 import queue as queue_module
 from queue import Empty
+import datasets as hf_datasets
+hf_datasets.disable_caching()
 
 
 from utils import get_model_tokenizer, get_loaded_model_tokenizer, setup, cleanup, log_args, gather_and_merge_dicts, gather_and_merge_list

@@ -10,6 +10,8 @@ import re
 from itertools import chain
 from torch.distributed.fsdp import FullyShardedDataParallel as FSDP
 import torch.multiprocessing as mp
+import datasets as hf_datasets
+hf_datasets.disable_caching()
 
 from utils import get_model_tokenizer, get_loaded_model_tokenizer, get_wrong_examples_dataloader_STaR, get_dataloader, setup, cleanup, log_args, merge_flops_logs
 
