@@ -194,10 +194,30 @@ Likely cause: paper uses `meta-llama/Llama-3.2-3B-Instruct` (instruction-tuned, 
 
 ---
 
-## ANLI-R1 + Llama-3.2-3B (⏳ night 3)
+## ANLI-R1 + Llama-3.2-3B-Instruct (⏳ running — iter 9/21)
 
 **Paper claim:** 66.8% @ 21 iters, 1,340.9 PFLOPs  
 **Log:** `train_anli_llama_seed10.log`
+
+| Iter | Dev Acc |
+|------|---------|
+| 1 | 35.6% |
+| 2 | 33.2% |
+| 3 | 39.2% |
+| 4 | 35.0% |
+| 5 | 38.0% |
+| 6 | 38.0% |
+| 7 | 37.8% |
+| 8 | 44.8% |
+| 9 | 42.2% |
+| 10 | 43.0% |
+| 11 | 45.8% |
+| 12 | 43.2% |
+| 13 | 48.4% |
+| 14 | 49.6% |
+| 15 | **49.8%** |
+
+**New high 49.8% — stalling near 50%. 6 iters remain; needs +17pp to reach paper's 66.8%. Hint_acc at 62% shows underlying learning.**
 
 ---
 
