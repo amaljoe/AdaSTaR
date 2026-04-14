@@ -162,10 +162,35 @@ Likely cause: paper uses `meta-llama/Llama-3.2-3B-Instruct` (instruction-tuned, 
 
 ---
 
-## CQA + Llama-3.2-3B (⏳ night 2)
+## CQA + Llama-3.2-3B-Instruct (✅ DONE — 20 iters)
 
 **Paper claim:** 78.0% @ 20 iters, 779.3 PFLOPs  
 **Log:** `train_cqa_llama_seed10.log`
+
+| Iter | Dev Acc |
+|------|---------|
+| 1 | 55.8% |
+| 2 | 50.6% |
+| 3 | 39.2% |
+| 4 | 63.8% |
+| 5 | 70.4% |
+| 6 | 67.4% |
+| 7 | 69.4% |
+| 8 | 71.2% |
+| 9 | 71.4% |
+| 10 | 71.2% |
+| 11 | 71.6% |
+| 12 | 72.2% |
+| 13 | 72.4% |
+| 14 | 72.2% |
+| 15 | 73.0% |
+| 16 | 70.4% |
+| 17 | 70.2% |
+| 18 | 71.8% |
+| 19 | 71.8% |
+| 20 | **73.4%** |
+
+**Final: 73.4%, peak 73.4% vs paper 78.0% (-4.6pp). Volatile trajectory throughout; Instruct model converges lower than paper's base Llama on CQA.**
 
 ---
 
@@ -195,6 +220,6 @@ Likely cause: paper uses `meta-llama/Llama-3.2-3B-Instruct` (instruction-tuned, 
 | ARC-C | Llama-3.2-3B-Instruct | **74.0%** | 73.8% | **+0.2pp** | ✅ done |
 | ARC-C | Qwen2.5-3B | **83.0%** | 73.8% | **+9.2pp** | ✅ done |
 | ARC-C | Gemma-7B | **74.4%** | ~73.8% | **+0.6pp** | ✅ done |
-| CQA | Llama-3.2-3B | — | 78.0% | — | ⏳ |
+| CQA | Llama-3.2-3B-Instruct | 73.4% | 78.0% | -4.6pp | ✅ done |
 | ANLI-R1 | Llama-3.2-3B | — | 66.8% | — | ⏳ |
 | CLadder | Llama-3.2-3B | — | 95.6% | — | ⏳ |
